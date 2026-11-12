@@ -494,19 +494,19 @@
               <span style="font-size: 11.5px; font-weight: 600; color: var(--gold-light); background: rgba(181,145,75,0.25); padding: 3px 8px; border-radius: 6px;">የዛሬ የሽምደዳ መዝሙር (Full Song Target)</span>
               <span style="font-size: 12px; color: var(--gold-light);">፮ ጥቅሶች (ሙሉ)</span>
             </div>
-            <div style="font-size: 18px; font-weight: 700; margin-top: 10px; color: #FFFFFF;">
-              መዝሙረ ዳዊት ፳፫ (Psalm 23)
+            <div id="homeTargetTitle" style="font-size: 18px; font-weight: 700; margin-top: 10px; color: #FFFFFF;">
+              መዝሙረ ዳዊት ፩ (Psalm 1)
             </div>
-            <div style="font-size: 13px; font-style: italic; opacity: 0.9; margin-top: 4px; line-height: 1.45;">
-              «እግዚአብሔር ይርዕየኒ ወአልቦ ዘየኀፅረኒ፤ ውስተ ብሔረ ሣዕር ህየ ኀደsquareኒ...»
+            <div id="homeTargetIncipit" style="font-size: 13px; font-style: italic; opacity: 0.9; margin-top: 4px; line-height: 1.45;">
+              «ብፁዕ ብእሲ ዘኢሖረ በምክረ ረሲዓን፤ ወዘኢቆመ ውስተ ፍኖተ ኃጥአን...»
             </div>
             <div style="margin-top: 14px; display: flex; align-items: center; justify-content: space-between;">
-              <div style="font-size: 12px; opacity: 0.85;">የመሸምደድ ደረጃ፡ 50%</div>
-              <div style="font-size: 11.5px; color: var(--gold-light); border: 0.8px solid rgba(255,255,255,0.25); padding: 2px 7px; border-radius: 5px;">ደረጃ ፫ (7 ቀናት)</div>
+              <div id="homeTargetPercent" style="font-size: 12px; opacity: 0.85;">የመሸምደድ ደረጃ፡ 0%</div>
+              <div id="homeTargetBadge" style="font-size: 11.5px; color: var(--gold-light); border: 0.8px solid rgba(255,255,255,0.25); padding: 2px 7px; border-radius: 5px;">አዲስ ጅምር (ደረጃ ፩)</div>
             </div>
             <div style="margin-top: 14px;">
-              <button class="btn-gold-action" onclick="startFullPsalmMemorization(23, 'recall')">
-                <span>ሙሉውን መዝሙር በግዕዝ ጀምር (Start Full Psalm)</span>
+              <button id="homeTargetBtn" class="btn-gold-action" onclick="startFullPsalmMemorization(1, 'read')">
+                <span>ሙሉውን መዝሙር በግዕዝ ጀምር (Start Psalm 1)</span>
                 <span>→</span>
               </button>
             </div>
@@ -604,14 +604,14 @@
           <div class="card" style="background: var(--card-warm); padding: 16px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span style="font-size: 14px; font-weight: 700; color: var(--navy-primary);">አጠቃላይ የሽምደዳ ደረጃ</span>
-              <span style="font-size: 14px; font-weight: 700; color: var(--gold-dark);" id="statOverallPercent">0%</span>
+              <span style="font-size: 14px; font-weight: 700; color: var(--gold-dark);" id="homeOverallPercentText">0%</span>
             </div>
             <div style="width: 100%; height: 7px; background: rgba(0,0,0,0.06); border-radius: 4px; margin-top: 10px; overflow: hidden;">
-              <div style="width: 72%; height: 100%; background: var(--gold-muted); border-radius: 4px;"></div>
+              <div id="homeOverallProgressBar" style="width: 0%; height: 100%; background: var(--gold-muted); border-radius: 4px; transition: width 0.6s ease;"></div>
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); margin-top: 8px;">
-              <span>12 የተጀመሩ መዝሙራት</span>
-              <span>8 ሙሉ በሙሉ የተሸመደዱ</span>
+              <span id="homeOverallStartedText">0 የተጀመሩ መዝሙራት</span>
+              <span id="homeOverallCompletedText">0 ሙሉ በሙሉ የተሸመደዱ</span>
             </div>
           </div>
         </div>
@@ -943,60 +943,64 @@
             </div>
           </div>
 
-          <!-- 2x2 Stats Grid -->
+          <!-- 2x2 Stats Grid (100% Clean & Dynamic) -->
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
             <div class="card" style="padding: 14px; text-align: center; margin-bottom: 0;">
-              <div style="font-size: 22px; font-weight: 800; color: var(--navy-primary);">12</div>
+              <div id="statPsalmsStarted" style="font-size: 22px; font-weight: 800; color: var(--navy-primary);">0</div>
               <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;">የተጀመሩ መዝሙራት<br>Psalms Started</div>
             </div>
             <div class="card" style="padding: 14px; text-align: center; margin-bottom: 0;">
-              <div style="font-size: 22px; font-weight: 800; color: var(--gold-dark);">8</div>
+              <div id="statPsalmsCompleted" style="font-size: 22px; font-weight: 800; color: var(--gold-dark);">0</div>
               <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;">የተጠናቀቁ መዝሙራት<br>Completed Songs</div>
             </div>
             <div class="card" style="padding: 14px; text-align: center; margin-bottom: 0;">
-              <div style="font-size: 22px; font-weight: 800; color: var(--navy-primary);">156</div>
+              <div id="statVersesLearned" style="font-size: 22px; font-weight: 800; color: var(--navy-primary);">0</div>
               <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 2px;">የተሸመደዱ ጥቅሶች<br>Verses Learned</div>
             </div>
             <div class="card" style="padding: 14px; text-align: center; margin-bottom: 0; border-color: rgba(142,40,56,0.3);">
-              <div style="font-size: 22px; font-weight: 800; color: var(--crimson-manuscript);">4</div>
+              <div id="statDueForReview" style="font-size: 22px; font-weight: 800; color: var(--crimson-manuscript);">0</div>
               <div style="font-size: 11.5px; color: var(--crimson-manuscript); margin-top: 2px;">ለክለሳ የደረሱ<br>Due for Review</div>
             </div>
           </div>
 
-          <!-- Weekly Activity Chart -->
+          <!-- Weekly Activity Chart (Dynamic based on real study activity) -->
           <div class="card" style="padding: 16px;">
-            <div style="font-size: 13.5px; font-weight: 700; color: var(--navy-primary); margin-bottom: 12px;">
-              የሳምንቱ የሽምደዳ እንቅስቃሴ (Weekly Activity)
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13.5px; font-weight: 700; color: var(--navy-primary);">የሳምንቱ የሽምደዳ እንቅስቃሴ (Weekly Activity)</span>
+              <span id="statWeeklyTotalMinutes" style="font-size: 11px; color: var(--gold-dark); font-weight: 600;">0 ደቂቃ</span>
             </div>
             <div style="display: flex; justify-content: space-around; align-items: flex-end; height: 75px; padding-bottom: 4px;">
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 35px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barMon" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">ሰኞ</span>
               </div>
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 50px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barTue" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">ማክ</span>
               </div>
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 40px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barWed" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">ረቡዕ</span>
               </div>
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 65px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barThu" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">ሐሙስ</span>
               </div>
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 30px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barFri" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">ዓርብ</span>
               </div>
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 70px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barSat" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">ቅዳሜ</span>
               </div>
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                <div style="width: 12px; height: 55px; background: var(--gold-muted); border-radius: 6px;"></div>
+                <div id="barSun" style="width: 12px; height: 4px; background: var(--gold-muted); border-radius: 6px; opacity: 0.35; transition: height 0.5s ease;"></div>
                 <span style="font-size: 10px; color: var(--text-secondary);">እሑድ</span>
               </div>
+            </div>
+            <div id="statActivityDesc" style="font-size: 11px; color: var(--text-secondary); margin-top: 8px; text-align: center;">
+              በዚህ ሳምንት እስካሁን የተጠና የለም • ዕለታዊ ጥናትዎን ዛሬ ይጀምሩ
             </div>
           </div>
 
@@ -1007,7 +1011,7 @@
             </div>
             <div>
               <div style="font-size: 12px; color: var(--text-secondary);">የጥናት ቀጣይነት (Learning Streak)</div>
-              <div style="font-size: 15px; font-weight: 700; color: var(--navy-primary);">፯ ተከታታይ ቀናት (7 Days Active)</div>
+              <div id="statStreakText" style="font-size: 15px; font-weight: 700; color: var(--navy-primary);">0 ተከታታይ ቀናት (0 Days Active)</div>
             </div>
           </div>
         </div>
@@ -1188,8 +1192,10 @@ const EOTC_FULL_PSALMS = [{"number": 1, "ethiopicNumber": "፩", "titleGeez": "�
         }
       }
 
+      const startedCount = studiedPsalmsSet.size;
       const percent = Math.min(100, Math.round((totalVerses / 2593) * 100));
 
+      // Progress Screen Elements
       const elPercent = document.getElementById('statOverallPercent');
       if (elPercent) elPercent.textContent = percent + '%';
 
@@ -1197,7 +1203,7 @@ const EOTC_FULL_PSALMS = [{"number": 1, "ethiopicNumber": "፩", "titleGeez": "�
       if (elPath) elPath.setAttribute('stroke-dasharray', percent + ', 100');
 
       const elStarted = document.getElementById('statPsalmsStarted');
-      if (elStarted) elStarted.textContent = studiedPsalmsSet.size;
+      if (elStarted) elStarted.textContent = startedCount;
 
       const elCompleted = document.getElementById('statPsalmsCompleted');
       if (elCompleted) elCompleted.textContent = completedPsalms;
@@ -1206,16 +1212,67 @@ const EOTC_FULL_PSALMS = [{"number": 1, "ethiopicNumber": "፩", "titleGeez": "�
       if (elVerses) elVerses.textContent = totalVerses;
 
       const elDue = document.getElementById('statDueForReview');
-      if (elDue) elDue.textContent = Math.max(0, studiedPsalmsSet.size - completedPsalms);
+      if (elDue) elDue.textContent = Math.max(0, startedCount - completedPsalms);
 
-      const elStreak = document.getElementById('statLearningStreak');
-      if (elStreak) elStreak.textContent = studyStreak + ' ቀናት ተከታትለዋል';
+      // Streak Card
+      const elStreakText = document.getElementById('statStreakText');
+      if (elStreakText) {
+        elStreakText.textContent = studyStreak > 0
+          ? `${studyStreak} ተከታታይ ቀናት (${studyStreak} Days Active)`
+          : '0 ተከታታይ ቀናት (0 Days Active)';
+      }
 
-      const elStreakBadge = document.getElementById('statStreakBadge');
-      if (elStreakBadge) elStreakBadge.textContent = studyStreak + ' ቀን';
-
-      const elHomePercent = document.getElementById('homeOverallPercent');
+      // Home Screen Elements
+      const elHomePercent = document.getElementById('homeOverallPercentText');
       if (elHomePercent) elHomePercent.textContent = percent + '%';
+
+      const elHomeBar = document.getElementById('homeOverallProgressBar');
+      if (elHomeBar) elHomeBar.style.width = percent + '%';
+
+      const elHomeStarted = document.getElementById('homeOverallStartedText');
+      if (elHomeStarted) elHomeStarted.textContent = `${startedCount} የተጀመሩ መዝሙራት`;
+
+      const elHomeCompleted = document.getElementById('homeOverallCompletedText');
+      if (elHomeCompleted) elHomeCompleted.textContent = `${completedPsalms} ሙሉ በሙሉ የተሸመደዱ`;
+
+      // Home Screen Recently Studied List
+      renderHomeRecentlyStudied();
+    }
+
+    function renderHomeRecentlyStudied() {
+      const container = document.getElementById('homeRecentContainer');
+      if (!container) return;
+
+      if (studiedPsalmsSet.size === 0) {
+        container.innerHTML = `
+          <div class="card" style="padding: 16px; text-align: center; background: var(--card-warm); border: 1px dashed var(--gold-border);">
+            <div style="font-size: 22px;">📖</div>
+            <div style="font-size: 13.5px; font-weight: 600; color: var(--navy-primary); margin-top: 6px;">እስካሁን የተጠና መዝሙር የለም</div>
+            <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 4px;">ከመዝሙር ፩ ጀምረው የመጀመሪያውን መዝሙር በቃልዎ ይያዙ!</div>
+            <div style="margin-top: 10px;">
+              <button class="btn-outline-action" style="padding: 6px 14px; font-size: 12px; border-color: var(--gold-dark); color: var(--navy-primary);" onclick="openPsalmReading(1)">መዝሙር ፩ አንብብ ›</button>
+            </div>
+          </div>
+        `;
+      } else {
+        let html = '<div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;">';
+        studiedPsalmsSet.forEach(num => {
+          const p = getPsalm(num);
+          const isBookmarked = bookmarks.has(num);
+          html += `
+            <div class="card" style="width: 160px; flex-shrink: 0; padding: 12px; margin-bottom: 0; cursor: pointer;" onclick="openPsalmReading(${p.number})">
+              <div style="display: flex; justify-content: space-between;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--crimson-manuscript);">መዝሙር ${p.ethiopicNumber}</span>
+                <span style="color: var(--gold-muted); font-size: 13px;">${isBookmarked ? '★' : '☆'}</span>
+              </div>
+              <div style="font-size: 13px; font-weight: 600; margin-top: 6px; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.titleGeez.split('-')[1] || p.titleGeez}</div>
+              <div style="font-size: 11px; color: var(--text-secondary); margin-top: 6px;">${p.versesCount} ጥቅሶች • ${p.liturgicalNote.split('•')[0].trim()}</div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        container.innerHTML = html;
+      }
     }
 
     function confirmResetAllData() {

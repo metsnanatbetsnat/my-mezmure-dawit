@@ -344,7 +344,9 @@ class HomeScreen extends StatelessWidget {
     PsalmProvider psalmProv,
     bool isDark,
   ) {
-    final recent = psalmProv.allPsalms.take(4).toList();
+    final recent = psalmProv.allPsalms
+        .where((p) => p.lastReadDate != null || p.memorizedVersesCount > 0)
+        .toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -365,14 +367,51 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 if (onNavigateTab != null) onNavigateTab!(1);
               },
-              child: const Text('ሁሉንም (፻፶) ›', style: TextStyle(fontSize: 12)),
+              child: const Text('ሁሉንም (፻፶፩) ›', style: TextStyle(fontSize: 12)),
             ),
           ],
         ),
         const SizedBox(height: 8),
-        SizedBox(
-          height: 120,
-          child: ListView.separated(
+        if (recent.isEmpty)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.darkCard : AppColors.cardWarm,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: isDark ? AppColors.darkCardBorder : AppColors.cardBorder,
+                width: 0.8,
+              ),
+            ),
+            child: Column(
+              children: [
+                const Text('📖', style: TextStyle(fontSize: 22)),
+                const SizedBox(height: 6),
+                Text(
+                  'እስካሁን የተጠና መዝሙር የለም',
+                  style: TextStyle(
+                    fontFamily: 'Noto Serif Ethiopic',
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w600,
+                    color: isDark ? AppColors.textPrimaryDark : AppColors.navyPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  'ከመዝሙር ፩ ጀምረው የመጀመሪያውን መዝሙር በቃልዎ ይያዙ!',
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                  ),
+                ),
+              ],
+            ),
+          )
+        else
+          SizedBox(
+            height: 120,
+            child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: recent.length,
             separatorBuilder: (_, __) => const SizedBox(width: 10),

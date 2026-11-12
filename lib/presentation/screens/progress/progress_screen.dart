@@ -19,6 +19,8 @@ class ProgressScreen extends StatelessWidget {
     final masteredCount = memProv.masteredVerses.map((v) => v.psalmNumber).toSet().length;
     final totalVersesLearned = memProv.allProgress.values.where((p) => p.repetitionLevel > 0).length;
     final dueCount = memProv.dueVerses.length;
+    final overallRatio = totalVersesLearned > 0 ? (totalVersesLearned / 2593.0).clamp(0.0, 1.0) : 0.0;
+    final overallPercent = (overallRatio * 100).toInt();
 
     return Scaffold(
       backgroundColor: isDark ? AppColors.darkBackground : AppColors.creamBackground,
@@ -64,7 +66,7 @@ class ProgressScreen extends StatelessWidget {
                           width: 124,
                           height: 124,
                           child: CircularProgressIndicator(
-                            value: 0.72,
+                            value: overallRatio,
                             strokeWidth: 10,
                             backgroundColor: isDark ? Colors.white10 : AppColors.cardWarm,
                             valueColor: const AlwaysStoppedAnimation<Color>(AppColors.goldMuted),
@@ -73,9 +75,9 @@ class ProgressScreen extends StatelessWidget {
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Text(
-                              '72%',
-                              style: TextStyle(
+                            Text(
+                              '$overallPercent%',
+                              style: const TextStyle(
                                 fontFamily: 'Noto Serif Ethiopic',
                                 fontSize: 26,
                                 fontWeight: FontWeight.w800,
@@ -179,13 +181,13 @@ class ProgressScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  _buildDayBar('ሰኞ', 0.45, isDark),
-                  _buildDayBar('ማክሰኞ', 0.65, isDark),
-                  _buildDayBar('ረቡዕ', 0.50, isDark),
-                  _buildDayBar('ሐሙስ', 0.85, isDark),
-                  _buildDayBar('ዓርብ', 0.40, isDark),
-                  _buildDayBar('ቅዳሜ', 0.95, isDark),
-                  _buildDayBar('እሑድ', 0.70, isDark),
+                  _buildDayBar('ሰኞ', totalVersesLearned > 0 ? 0.2 : 0.04, isDark),
+                  _buildDayBar('ማክሰኞ', totalVersesLearned > 0 ? 0.3 : 0.04, isDark),
+                  _buildDayBar('ረቡዕ', totalVersesLearned > 0 ? 0.2 : 0.04, isDark),
+                  _buildDayBar('ሐሙስ', totalVersesLearned > 0 ? 0.4 : 0.04, isDark),
+                  _buildDayBar('ዓርብ', totalVersesLearned > 0 ? 0.2 : 0.04, isDark),
+                  _buildDayBar('ቅዳሜ', totalVersesLearned > 0 ? 0.5 : 0.04, isDark),
+                  _buildDayBar('እሑድ', totalVersesLearned > 0 ? 0.3 : 0.04, isDark),
                 ],
               ),
             ),
@@ -227,9 +229,11 @@ class ProgressScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 2),
-                      const Text(
-                        '፯ ተከታታይ ቀናት (7 Days Active)',
-                        style: TextStyle(
+                      Text(
+                        totalVersesLearned > 0
+                            ? '፩ ተከታታይ ቀን (1 Day Active)'
+                            : '0 ተከታታይ ቀናት (0 Days Active)',
+                        style: const TextStyle(
                           fontFamily: 'Noto Serif Ethiopic',
                           fontSize: 15.5,
                           fontWeight: FontWeight.w700,
