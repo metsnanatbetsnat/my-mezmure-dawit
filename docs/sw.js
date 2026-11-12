@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mezmure-dawit-v1';
+const CACHE_NAME = 'mezmure-dawit-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -29,8 +29,19 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Cache-first with network fallback
+// Fetch Event - Cache-first with network fallback for local assets, bypass for Firebase
 self.addEventListener('fetch', (event) => {
+  const url = event.request.url;
+
+  // Let all Firebase, Google Auth, Firestore, and external API requests bypass service worker
+  if (url.includes('googleapis.com') ||
+      url.includes('firebaseio.com') ||
+      url.includes('identitytoolkit') ||
+      url.includes('gstatic.com') ||
+      event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
